@@ -1055,7 +1055,7 @@ dependencies = [
  "tokio",
  "ya-client",
  "ya-client-model 0.2.0 (git+https://github.com/golemfactory/ya-client.git?rev=50c530fb54fbb91a9ad743f43f2c6e0b3fc3b34f)",
- "yarapi",
+ "yarapi 0.3.0",
 ]
 
 [[package]]
@@ -1586,7 +1586,7 @@ dependencies = [
  "serde_json",
  "structopt",
  "tokio",
- "yarapi",
+ "yarapi 0.3.0 (git+https://github.com/golemfactory/yarapi?branch=event-api-compatibility)",
 ]
 
 [[package]]
@@ -2694,6 +2694,34 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "39f0c922f1a334134dc2f7a8b67dc5d25f0735263feec974345ff706bcf20b0d"
 dependencies = [
  "linked-hash-map",
+]
+
+[[package]]
+name = "yarapi"
+version = "0.3.0"
+dependencies = [
+ "actix",
+ "actix-rt",
+ "anyhow",
+ "bigdecimal",
+ "chrono",
+ "dotenv",
+ "env_logger",
+ "futures",
+ "futures-core",
+ "futures-util",
+ "gftp",
+ "log",
+ "pin-project 1.0.2",
+ "secp256k1 0.17.2",
+ "semver",
+ "serde",
+ "serde_json",
+ "sha3 0.9.1",
+ "tokio",
+ "url",
+ "ya-agreement-utils",
+ "ya-client",
 ]
 
 [[package]]

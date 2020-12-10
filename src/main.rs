@@ -3,14 +3,13 @@ use futures::future::ready;
 use futures::StreamExt;
 use indicatif::{ProgressBar, ProgressStyle};
 use std::ops::Add;
+use std::path::PathBuf;
 use std::sync::Arc;
 use structopt::StructOpt;
 use tokio::sync::mpsc;
 
 use ya_client::web::WebClient;
-use ya_client_model::activity::{
-    Capture, CaptureFormat, CaptureMode, ExeScriptCommand, RuntimeEventKind,
-};
+use ya_client_model::activity::RuntimeEventKind;
 use ya_client_model::market::NewDemand;
 
 use yarapi::requestor::Image;
@@ -21,7 +20,6 @@ use yarapi::ya_agreement_utils::{constraints, ConstraintKey, Constraints};
 
 use interactive_exeunit::messages::{Info, Messages, Progress};
 
-/// TODO: Replace with real image.
 const PACKAGE: &str =
     "hash:sha3:1b93678011c94a883605634eb4636a27a2ac6459816f48647b6ab968:http://yacn.dev.golem.network:8000/progress-reporter-0.1.1";
 
@@ -122,24 +120,13 @@ pub async fn monitor_progress(activity: Arc<DefaultActivity>) -> anyhow::Result<
 
     tokio::spawn(events_tracker(receiver));
 
-    let capture = Some(CaptureMode::Stream {
-        limit: None,
-        format: Some(CaptureFormat::Str),
-    });
-
-    let commands = vec![ExeScriptCommand::Run {
-        entry_point: "/bin/progress-reporter".to_string(),
-        args: vec![],
-        capture: Some(Capture {
-            stdout: capture.clone(),
-            stderr: capture,
-        }),
-    }];
-
-    let batch = activity.exec_streaming(commands).await?;
+    let batch = activity
+        .run_streaming("/bin/progress-reporter", vec![])
+        .await?;
     batch
         .stream()
         .await?
+        .forward_to_file(&PathBuf::from("stdout.txt"), &PathBuf::from("stderr.txt"))?
         .capture_messages(sender)
         .take_while(|event| {
             ready(match &event.kind {

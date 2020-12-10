@@ -15,8 +15,8 @@ members = [
 ya-client = { git = "https://github.com/golemfactory/ya-client.git", rev = "50c530fb54fbb91a9ad743f43f2c6e0b3fc3b34f"}
 ya-client-model = { git = "https://github.com/golemfactory/ya-client.git", rev = "50c530fb54fbb91a9ad743f43f2c6e0b3fc3b34f"}
 
-yarapi = { git = "https://github.com/golemfactory/yarapi", branch = "event-api-compatibility" }
-#yarapi = { path = "../../Golem/yarapi", branch = "event-api-compatibility" }
+#yarapi = { git = "https://github.com/golemfactory/yarapi", branch = "event-api-compatibility" }
+yarapi = { path = "../../Golem/yarapi", branch = "event-api-compatibility" }
 
 actix = "0.9"
 actix-rt = "1.0"
