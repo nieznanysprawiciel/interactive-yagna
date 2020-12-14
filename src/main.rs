@@ -64,7 +64,6 @@ pub async fn main() -> anyhow::Result<()> {
         .filter_module("yarapi::drop", log::LevelFilter::Off)
         .filter_module("ya_service_bus::connection", log::LevelFilter::Off)
         .filter_module("ya_service_bus::remote_router", log::LevelFilter::Off)
-        .filter_module("ya_service_bus::remote_router", log::LevelFilter::Off)
         .init();
 
     let client = WebClient::with_token(&args.appkey);

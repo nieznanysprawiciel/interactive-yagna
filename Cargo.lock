@@ -592,7 +592,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "aafcde04e90a5226a6443b7aabdb016ba2f8307c847d524724bd9b346dd1a2d3"
 dependencies = [
  "atty",
- "humantime",
+ "humantime 1.3.0",
  "log",
  "regex",
  "termcolor",
@@ -627,6 +627,18 @@ dependencies = [
  "quote 1.0.7",
  "syn 1.0.54",
  "synstructure",
+]
+
+[[package]]
+name = "filetime"
+version = "0.2.13"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0c122a393ea57648015bf06fbd3d372378992e86b9ff5a7a497b076a28c79efe"
+dependencies = [
+ "cfg-if 1.0.0",
+ "libc",
+ "redox_syscall",
+ "winapi 0.3.9",
 ]
 
 [[package]]
@@ -676,6 +688,25 @@ checksum = "ece68d15c92e84fa4f19d3780f1294e5ca82a78a6d515f1efaabcc144688be00"
 dependencies = [
  "matches",
  "percent-encoding",
+]
+
+[[package]]
+name = "fsevent"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5ab7d1bd1bd33cc98b0889831b72da23c0aa4df9cec7e0702f46ecea04b35db6"
+dependencies = [
+ "bitflags",
+ "fsevent-sys",
+]
+
+[[package]]
+name = "fsevent-sys"
+version = "2.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f41b048a94555da0f42f1d632e2e19510084fb8e303b0daa2816e733fb3644a0"
+dependencies = [
+ "libc",
 ]
 
 [[package]]
@@ -992,6 +1023,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "humantime"
+version = "2.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3c1ad908cc71012b7bea4d0c53ba96a8cba9962f048fa68d143376143d863b7a"
+
+[[package]]
 name = "idna"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1025,6 +1062,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "inotify"
+version = "0.7.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4816c66d2c8ae673df83366c18341538f234a26d65a9ecea5c348b453ac1d02f"
+dependencies = [
+ "bitflags",
+ "inotify-sys",
+ "libc",
+]
+
+[[package]]
+name = "inotify-sys"
+version = "0.1.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c4563555856585ab3180a5bf0b2f9f8d301a728462afffc8195b3f5394229c55"
+dependencies = [
+ "libc",
+]
+
+[[package]]
 name = "instant"
 version = "0.1.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1053,8 +1110,8 @@ dependencies = [
  "serde_json",
  "structopt",
  "tokio",
- "ya-client",
- "ya-client-model 0.2.0 (git+https://github.com/golemfactory/ya-client.git?rev=50c530fb54fbb91a9ad743f43f2c6e0b3fc3b34f)",
+ "ya-client 0.4.0 (git+https://github.com/golemfactory/ya-client.git?rev=e68bbd90c903c6f74f77fddb80a432d20e4e2b2a)",
+ "ya-client-model 0.2.0 (git+https://github.com/golemfactory/ya-client.git?rev=e68bbd90c903c6f74f77fddb80a432d20e4e2b2a)",
  "yarapi 0.3.0",
 ]
 
@@ -1121,6 +1178,12 @@ name = "lazy_static"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
+
+[[package]]
+name = "lazycell"
+version = "1.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "830d08ce1d1d941e6b30645f1a0eb5643013d835ce3779a5fc208261dbe10f55"
 
 [[package]]
 name = "libc"
@@ -1230,6 +1293,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "mio-extras"
+version = "2.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "52403fe290012ce777c4626790c8951324a2b9e3316b3143779c72b029742f19"
+dependencies = [
+ "lazycell",
+ "log",
+ "mio",
+ "slab",
+]
+
+[[package]]
 name = "mio-uds"
 version = "0.6.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1266,6 +1341,24 @@ checksum = "d7cf75f38f16cb05ea017784dc6dbfd354f76c223dba37701734c4f5a9337d02"
 dependencies = [
  "cfg-if 0.1.10",
  "libc",
+ "winapi 0.3.9",
+]
+
+[[package]]
+name = "notify"
+version = "4.0.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "80ae4a7688d1fab81c5bf19c64fc8db920be8d519ce6336ed4e7efe024724dbd"
+dependencies = [
+ "bitflags",
+ "filetime",
+ "fsevent",
+ "fsevent-sys",
+ "inotify",
+ "libc",
+ "mio",
+ "mio-extras",
+ "walkdir",
  "winapi 0.3.9",
 ]
 
@@ -1900,6 +1993,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "71d301d4193d031abdd79ff7e3dd721168a9572ef3fe51a1517aba235bd8f86e"
 
 [[package]]
+name = "same-file"
+version = "1.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "93fc1dc3aaa9bfed95e02e6eadabb4baf7e3078b0bd1b4d7b6b0b68378900502"
+dependencies = [
+ "winapi-util",
+]
+
+[[package]]
 name = "scopeguard"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1911,7 +2013,9 @@ version = "0.17.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2932dc07acd2066ff2e3921a4419606b220ba6cd03a9935123856cc534877056"
 dependencies = [
+ "rand 0.6.5",
  "secp256k1-sys 0.1.2",
+ "serde",
 ]
 
 [[package]]
@@ -2455,6 +2559,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b5a972e5669d67ba988ce3dc826706fb0a8b01471c088cb0b6110b805cc36aed"
 
 [[package]]
+name = "walkdir"
+version = "2.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "777182bc735b6424e1a57516d35ed72cb8019d85c8c9bf536dccb3445c1a2f7d"
+dependencies = [
+ "same-file",
+ "winapi 0.3.9",
+ "winapi-util",
+]
+
+[[package]]
 name = "wasi"
 version = "0.9.0+wasi-snapshot-preview1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2547,6 +2662,18 @@ dependencies = [
 [[package]]
 name = "ya-agreement-utils"
 version = "0.2.0"
+source = "git+https://github.com/golemfactory/yagna.git?rev=6edcdf2173699cfdd445180ff368efadfce7293f#6edcdf2173699cfdd445180ff368efadfce7293f"
+dependencies = [
+ "serde",
+ "serde_json",
+ "serde_yaml",
+ "thiserror",
+ "ya-client-model 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "ya-agreement-utils"
+version = "0.2.0"
 source = "git+https://github.com/golemfactory/yagna.git?rev=a556eebdf10396124b3cf43b719e7ca9ea85e984#a556eebdf10396124b3cf43b719e7ca9ea85e984"
 dependencies = [
  "serde",
@@ -2581,6 +2708,33 @@ dependencies = [
  "thiserror",
  "url",
  "ya-client-model 0.2.0 (git+https://github.com/golemfactory/ya-client.git?rev=50c530fb54fbb91a9ad743f43f2c6e0b3fc3b34f)",
+]
+
+[[package]]
+name = "ya-client"
+version = "0.4.0"
+source = "git+https://github.com/golemfactory/ya-client.git?rev=e68bbd90c903c6f74f77fddb80a432d20e4e2b2a#e68bbd90c903c6f74f77fddb80a432d20e4e2b2a"
+dependencies = [
+ "awc",
+ "bytes 0.5.6",
+ "chrono",
+ "envy",
+ "failure",
+ "futures",
+ "graphene-sgx",
+ "heck",
+ "hex",
+ "lazy_static",
+ "log",
+ "mime",
+ "openssl",
+ "rand 0.6.5",
+ "secp256k1 0.17.2",
+ "serde",
+ "serde_json",
+ "thiserror",
+ "url",
+ "ya-client-model 0.2.0 (git+https://github.com/golemfactory/ya-client.git?rev=e68bbd90c903c6f74f77fddb80a432d20e4e2b2a)",
 ]
 
 [[package]]
@@ -2627,6 +2781,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "ya-client-model"
+version = "0.2.0"
+source = "git+https://github.com/golemfactory/ya-client.git?rev=e68bbd90c903c6f74f77fddb80a432d20e4e2b2a#e68bbd90c903c6f74f77fddb80a432d20e4e2b2a"
+dependencies = [
+ "bigdecimal",
+ "chrono",
+ "derive_more",
+ "hex",
+ "openssl",
+ "rand 0.7.3",
+ "secp256k1 0.17.2",
+ "serde",
+ "serde_json",
+ "thiserror",
+]
+
+[[package]]
 name = "ya-core-model"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2639,6 +2810,32 @@ dependencies = [
  "thiserror",
  "ya-client-model 0.1.1",
  "ya-service-bus",
+]
+
+[[package]]
+name = "ya-debugger"
+version = "0.1.0"
+dependencies = [
+ "actix",
+ "actix-rt",
+ "anyhow",
+ "bigdecimal",
+ "chrono",
+ "derive_more",
+ "dotenv",
+ "env_logger",
+ "futures",
+ "humantime 2.0.1",
+ "indicatif",
+ "log",
+ "semver",
+ "serde",
+ "serde_json",
+ "structopt",
+ "tokio",
+ "ya-client 0.4.0 (git+https://github.com/golemfactory/ya-client.git?rev=e68bbd90c903c6f74f77fddb80a432d20e4e2b2a)",
+ "ya-client-model 0.2.0 (git+https://github.com/golemfactory/ya-client.git?rev=e68bbd90c903c6f74f77fddb80a432d20e4e2b2a)",
+ "yarapi 0.3.0",
 ]
 
 [[package]]
@@ -2712,6 +2909,7 @@ dependencies = [
  "futures-util",
  "gftp",
  "log",
+ "notify",
  "pin-project 1.0.2",
  "secp256k1 0.17.2",
  "semver",
@@ -2720,8 +2918,8 @@ dependencies = [
  "sha3 0.9.1",
  "tokio",
  "url",
- "ya-agreement-utils",
- "ya-client",
+ "ya-agreement-utils 0.2.0 (git+https://github.com/golemfactory/yagna.git?rev=6edcdf2173699cfdd445180ff368efadfce7293f)",
+ "ya-client 0.4.0 (git+https://github.com/golemfactory/ya-client.git?rev=e68bbd90c903c6f74f77fddb80a432d20e4e2b2a)",
 ]
 
 [[package]]
@@ -2749,6 +2947,6 @@ dependencies = [
  "sha3 0.9.1",
  "tokio",
  "url",
- "ya-agreement-utils",
- "ya-client",
+ "ya-agreement-utils 0.2.0 (git+https://github.com/golemfactory/yagna.git?rev=a556eebdf10396124b3cf43b719e7ca9ea85e984)",
+ "ya-client 0.4.0 (git+https://github.com/golemfactory/ya-client.git?rev=50c530fb54fbb91a9ad743f43f2c6e0b3fc3b34f)",
 ]
