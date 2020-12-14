@@ -29,4 +29,5 @@ semver = "0.10.0"
 serde = "1.0.117"
 serde_json = "1.0"
 structopt = "0.3"
+tabular = "0.1.4"
 tokio = { version = "0.2.10", features = ["fs"] }

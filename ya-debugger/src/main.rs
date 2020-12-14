@@ -1,40 +1,19 @@
-use chrono::{Duration, Utc};
-use humantime;
+mod agreement;
+mod display;
+mod monitor;
+
 use structopt::StructOpt;
 
 use ya_client::web::WebClient;
+use yarapi::rest::{self};
 
-use yarapi::rest::{self, Session};
-
-// #[derive(StructOpt)]
-// struct ActivityParams {
-//     #[structopt(long, env)]
-//     agreement_id: String,
-//     #[structopt(long, env)]
-//     activity_id: String,
-// }
+use crate::agreement::{run_agreement_command, Agreement};
+use crate::monitor::{run_activity_command, Activity};
 
 #[derive(StructOpt)]
 enum Commands {
     Agreement(Agreement),
-}
-
-#[derive(StructOpt)]
-struct Agreement {
-    #[structopt(subcommand)]
-    command: AgreementCommands,
-}
-
-#[derive(StructOpt)]
-enum AgreementCommands {
-    List {
-        #[structopt(long, parse(try_from_str = humantime::parse_duration), default_value = "24h")]
-        since: std::time::Duration,
-    },
-    ListActive {
-        #[structopt(long, parse(try_from_str = humantime::parse_duration), default_value = "100days")]
-        since: std::time::Duration,
-    },
+    Activity(Activity),
 }
 
 #[derive(StructOpt)]
@@ -61,37 +40,11 @@ pub async fn main() -> anyhow::Result<()> {
     let session = rest::Session::with_client(client.clone());
 
     match args.command {
-        Commands::Agreement(agreement_cmd) => match agreement_cmd.command {
-            AgreementCommands::List { since } => {
-                list_agreements(session, chrono::Duration::from_std(since)?).await?
-            }
-            AgreementCommands::ListActive { since } => {
-                list_active_agreements(session, chrono::Duration::from_std(since)?).await?
-            }
-        },
+        Commands::Agreement(agreement_cmd) => {
+            run_agreement_command(session, agreement_cmd.command).await?
+        }
+        Commands::Activity(activity_cmd) => run_activity_command(session, activity_cmd).await?,
     };
 
-    Ok(())
-}
-
-async fn list_agreements(session: Session, since: Duration) -> anyhow::Result<()> {
-    let market = session.market()?;
-
-    let timestamp = Utc::now() - since;
-    let agreements = market.list_agreements(&timestamp, None).await?;
-
-    println!("Agreements since {:#?}", timestamp);
-    println!("{:#?}", agreements);
-    Ok(())
-}
-
-async fn list_active_agreements(session: Session, since: Duration) -> anyhow::Result<()> {
-    let market = session.market()?;
-
-    let timestamp = Utc::now() - since;
-    let agreements = market.list_active_agreements(&timestamp, None).await?;
-
-    println!("Active Agreements since {:#?}", timestamp);
-    println!("{:#?}", agreements);
     Ok(())
 }

@@ -2253,6 +2253,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "tabular"
+version = "0.1.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e7e35bee02dcefe64a74065b6b869d241eab1a02fea0d65e6074ce4e51894c3b"
+dependencies = [
+ "unicode-width",
+]
+
+[[package]]
 name = "tempfile"
 version = "3.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2761,6 +2770,7 @@ dependencies = [
  "serde",
  "serde_json",
  "structopt",
+ "tabular",
  "tokio",
  "ya-client",
  "ya-client-model 0.2.0",
