@@ -1110,9 +1110,9 @@ dependencies = [
  "serde_json",
  "structopt",
  "tokio",
- "ya-client 0.4.0 (git+https://github.com/golemfactory/ya-client.git?rev=e68bbd90c903c6f74f77fddb80a432d20e4e2b2a)",
- "ya-client-model 0.2.0 (git+https://github.com/golemfactory/ya-client.git?rev=e68bbd90c903c6f74f77fddb80a432d20e4e2b2a)",
- "yarapi 0.3.0",
+ "ya-client",
+ "ya-client-model 0.2.0",
+ "yarapi 0.3.0 (git+https://github.com/golemfactory/yarapi?branch=messaging-through-streaming)",
 ]
 
 [[package]]
@@ -1335,9 +1335,9 @@ checksum = "2eb04b9f127583ed176e163fb9ec6f3e793b87e21deedd5734a69386a18a0151"
 
 [[package]]
 name = "net2"
-version = "0.2.36"
+version = "0.2.37"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d7cf75f38f16cb05ea017784dc6dbfd354f76c223dba37701734c4f5a9337d02"
+checksum = "391630d12b68002ae1e25e8f974306474966550ad82dac6886fb8910c19568ae"
 dependencies = [
  "cfg-if 0.1.10",
  "libc",
@@ -1434,12 +1434,12 @@ checksum = "624a8340c38c1b80fd549087862da4ba43e08858af025b236e509b6649fc13d5"
 
 [[package]]
 name = "openssl"
-version = "0.10.30"
+version = "0.10.31"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8d575eff3665419f9b83678ff2815858ad9d11567e082f5ac1814baba4e2bcb4"
+checksum = "8d008f51b1acffa0d3450a68606e6a51c123012edaacb0f4e1426bd978869187"
 dependencies = [
  "bitflags",
- "cfg-if 0.1.10",
+ "cfg-if 1.0.0",
  "foreign-types",
  "lazy_static",
  "libc",
@@ -1448,9 +1448,9 @@ dependencies = [
 
 [[package]]
 name = "openssl-sys"
-version = "0.9.58"
+version = "0.9.59"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a842db4709b604f0fe5d1170ae3565899be2ad3d9cbc72dedc789ac0511f78de"
+checksum = "de52d8eabd217311538a39bba130d7dea1f1e118010fee7a033d966845e7d5fe"
 dependencies = [
  "autocfg 1.0.1",
  "cc",
@@ -1679,7 +1679,7 @@ dependencies = [
  "serde_json",
  "structopt",
  "tokio",
- "yarapi 0.3.0 (git+https://github.com/golemfactory/yarapi?branch=event-api-compatibility)",
+ "yarapi 0.3.0 (git+https://github.com/golemfactory/yarapi?branch=messaging-through-streaming)",
 ]
 
 [[package]]
@@ -2013,9 +2013,7 @@ version = "0.17.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2932dc07acd2066ff2e3921a4419606b220ba6cd03a9935123856cc534877056"
 dependencies = [
- "rand 0.6.5",
  "secp256k1-sys 0.1.2",
- "serde",
 ]
 
 [[package]]
@@ -2362,9 +2360,9 @@ checksum = "cda74da7e1a664f795bb1f8a87ec406fb89a02522cf6e50620d016add6dbbf5c"
 
 [[package]]
 name = "tokio"
-version = "0.2.23"
+version = "0.2.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a6d7ad61edd59bfcc7e80dababf0f4aed2e6d5e0ba1659356ae889752dfc12ff"
+checksum = "099837d3464c16a808060bb3f02263b412f6fafcb5d01c533d309985fbeebe48"
 dependencies = [
  "bytes 0.5.6",
  "fnv",
@@ -2542,9 +2540,9 @@ dependencies = [
 
 [[package]]
 name = "vcpkg"
-version = "0.2.10"
+version = "0.2.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6454029bf181f092ad1b853286f23e2c507d8e8194d01d92da4a55c274a5508c"
+checksum = "b00bca6106a5e23f3eee943593759b7fcddb00554332e856d990c893966879fb"
 
 [[package]]
 name = "vec_map"
@@ -2668,46 +2666,7 @@ dependencies = [
  "serde_json",
  "serde_yaml",
  "thiserror",
- "ya-client-model 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "ya-agreement-utils"
-version = "0.2.0"
-source = "git+https://github.com/golemfactory/yagna.git?rev=a556eebdf10396124b3cf43b719e7ca9ea85e984#a556eebdf10396124b3cf43b719e7ca9ea85e984"
-dependencies = [
- "serde",
- "serde_json",
- "serde_yaml",
- "thiserror",
- "ya-client-model 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "ya-client"
-version = "0.4.0"
-source = "git+https://github.com/golemfactory/ya-client.git?rev=50c530fb54fbb91a9ad743f43f2c6e0b3fc3b34f#50c530fb54fbb91a9ad743f43f2c6e0b3fc3b34f"
-dependencies = [
- "awc",
- "bytes 0.5.6",
- "chrono",
- "envy",
- "failure",
- "futures",
- "graphene-sgx",
- "heck",
- "hex",
- "lazy_static",
- "log",
- "mime",
- "openssl",
- "rand 0.6.5",
- "secp256k1 0.19.0",
- "serde",
- "serde_json",
- "thiserror",
- "url",
- "ya-client-model 0.2.0 (git+https://github.com/golemfactory/ya-client.git?rev=50c530fb54fbb91a9ad743f43f2c6e0b3fc3b34f)",
+ "ya-client-model 0.2.0",
 ]
 
 [[package]]
@@ -2729,12 +2688,12 @@ dependencies = [
  "mime",
  "openssl",
  "rand 0.6.5",
- "secp256k1 0.17.2",
+ "secp256k1 0.19.0",
  "serde",
  "serde_json",
  "thiserror",
  "url",
- "ya-client-model 0.2.0 (git+https://github.com/golemfactory/ya-client.git?rev=e68bbd90c903c6f74f77fddb80a432d20e4e2b2a)",
+ "ya-client-model 0.2.0",
 ]
 
 [[package]]
@@ -2753,36 +2712,6 @@ dependencies = [
 [[package]]
 name = "ya-client-model"
 version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6d7b5a9fc91eaff99c4f199d5bfae24d9bec8cc34a18f3a4bf8eb575ab44f77e"
-dependencies = [
- "bigdecimal",
- "chrono",
- "rand 0.7.3",
- "serde",
- "serde_json",
- "thiserror",
-]
-
-[[package]]
-name = "ya-client-model"
-version = "0.2.0"
-source = "git+https://github.com/golemfactory/ya-client.git?rev=50c530fb54fbb91a9ad743f43f2c6e0b3fc3b34f#50c530fb54fbb91a9ad743f43f2c6e0b3fc3b34f"
-dependencies = [
- "bigdecimal",
- "chrono",
- "hex",
- "openssl",
- "rand 0.7.3",
- "secp256k1 0.19.0",
- "serde",
- "serde_json",
- "thiserror",
-]
-
-[[package]]
-name = "ya-client-model"
-version = "0.2.0"
 source = "git+https://github.com/golemfactory/ya-client.git?rev=e68bbd90c903c6f74f77fddb80a432d20e4e2b2a#e68bbd90c903c6f74f77fddb80a432d20e4e2b2a"
 dependencies = [
  "bigdecimal",
@@ -2791,7 +2720,7 @@ dependencies = [
  "hex",
  "openssl",
  "rand 0.7.3",
- "secp256k1 0.17.2",
+ "secp256k1 0.19.0",
  "serde",
  "serde_json",
  "thiserror",
@@ -2833,8 +2762,8 @@ dependencies = [
  "serde_json",
  "structopt",
  "tokio",
- "ya-client 0.4.0 (git+https://github.com/golemfactory/ya-client.git?rev=e68bbd90c903c6f74f77fddb80a432d20e4e2b2a)",
- "ya-client-model 0.2.0 (git+https://github.com/golemfactory/ya-client.git?rev=e68bbd90c903c6f74f77fddb80a432d20e4e2b2a)",
+ "ya-client",
+ "ya-client-model 0.2.0",
  "yarapi 0.3.0",
 ]
 
@@ -2918,14 +2847,14 @@ dependencies = [
  "sha3 0.9.1",
  "tokio",
  "url",
- "ya-agreement-utils 0.2.0 (git+https://github.com/golemfactory/yagna.git?rev=6edcdf2173699cfdd445180ff368efadfce7293f)",
- "ya-client 0.4.0 (git+https://github.com/golemfactory/ya-client.git?rev=e68bbd90c903c6f74f77fddb80a432d20e4e2b2a)",
+ "ya-agreement-utils",
+ "ya-client",
 ]
 
 [[package]]
 name = "yarapi"
 version = "0.3.0"
-source = "git+https://github.com/golemfactory/yarapi?branch=event-api-compatibility#b589b9c5c39edcc086f0102b21b0a3ce6661f046"
+source = "git+https://github.com/golemfactory/yarapi?branch=messaging-through-streaming#e0b7174ef8d6258bf9e1dd89b93c0252fe87293b"
 dependencies = [
  "actix",
  "actix-rt",
@@ -2939,6 +2868,7 @@ dependencies = [
  "futures-util",
  "gftp",
  "log",
+ "notify",
  "pin-project 1.0.2",
  "secp256k1 0.17.2",
  "semver",
@@ -2947,6 +2877,6 @@ dependencies = [
  "sha3 0.9.1",
  "tokio",
  "url",
- "ya-agreement-utils 0.2.0 (git+https://github.com/golemfactory/yagna.git?rev=a556eebdf10396124b3cf43b719e7ca9ea85e984)",
- "ya-client 0.4.0 (git+https://github.com/golemfactory/ya-client.git?rev=50c530fb54fbb91a9ad743f43f2c6e0b3fc3b34f)",
+ "ya-agreement-utils",
+ "ya-client",
 ]
