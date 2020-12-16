@@ -998,9 +998,9 @@ dependencies = [
 
 [[package]]
 name = "http"
-version = "0.2.1"
+version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "28d569972648b2c512421b5f2a405ad6ac9666547189d0c5477a3f200f3e02f9"
+checksum = "84129d298a6d57d246960ff8eb831ca4af3f96d29e2e28848dae275408658e26"
 dependencies = [
  "bytes 0.5.6",
  "fnv",
@@ -1041,9 +1041,9 @@ dependencies = [
 
 [[package]]
 name = "indexmap"
-version = "1.6.0"
+version = "1.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "55e2e4c765aa53a0424761bf9f41aa7a6ac1efa87238f59560640e27fca028f2"
+checksum = "4fb1fa934250de4de8aef298d81c729a7d33d8c239daa3a7575e6b92bfc7313b"
 dependencies = [
  "autocfg 1.0.1",
  "hashbrown",
@@ -1112,7 +1112,7 @@ dependencies = [
  "tokio",
  "ya-client",
  "ya-client-model 0.2.0",
- "yarapi 0.3.0 (git+https://github.com/golemfactory/yarapi?branch=messaging-through-streaming)",
+ "yarapi",
 ]
 
 [[package]]
@@ -1679,7 +1679,7 @@ dependencies = [
  "serde_json",
  "structopt",
  "tokio",
- "yarapi 0.3.0 (git+https://github.com/golemfactory/yarapi?branch=messaging-through-streaming)",
+ "yarapi",
 ]
 
 [[package]]
@@ -2178,13 +2178,12 @@ checksum = "ae524f056d7d770e174287294f562e95044c68e88dec909a00d2094805db9d75"
 
 [[package]]
 name = "socket2"
-version = "0.3.17"
+version = "0.3.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2c29947abdee2a218277abeca306f25789c938e500ea5a9d4b12a5a504466902"
+checksum = "97e0e9fd577458a4f61fb91fcb559ea2afecc54c934119421f9f5d3d5b1a1057"
 dependencies = [
  "cfg-if 1.0.0",
  "libc",
- "redox_syscall",
  "winapi 0.3.9",
 ]
 
@@ -2774,7 +2773,7 @@ dependencies = [
  "tokio",
  "ya-client",
  "ya-client-model 0.2.0",
- "yarapi 0.3.0",
+ "yarapi",
 ]
 
 [[package]]
@@ -2835,36 +2834,7 @@ dependencies = [
 [[package]]
 name = "yarapi"
 version = "0.3.0"
-dependencies = [
- "actix",
- "actix-rt",
- "anyhow",
- "bigdecimal",
- "chrono",
- "dotenv",
- "env_logger",
- "futures",
- "futures-core",
- "futures-util",
- "gftp",
- "log",
- "notify",
- "pin-project 1.0.2",
- "secp256k1 0.17.2",
- "semver",
- "serde",
- "serde_json",
- "sha3 0.9.1",
- "tokio",
- "url",
- "ya-agreement-utils",
- "ya-client",
-]
-
-[[package]]
-name = "yarapi"
-version = "0.3.0"
-source = "git+https://github.com/golemfactory/yarapi?branch=messaging-through-streaming#e0b7174ef8d6258bf9e1dd89b93c0252fe87293b"
+source = "git+https://github.com/golemfactory/yarapi?branch=messaging-through-streaming#c77d635a14ce8482ac2551749a26073559e7b0a7"
 dependencies = [
  "actix",
  "actix-rt",

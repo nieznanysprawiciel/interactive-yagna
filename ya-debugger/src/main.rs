@@ -1,4 +1,5 @@
 mod agreement;
+mod attach;
 mod display;
 mod monitor;
 
@@ -17,6 +18,7 @@ enum Commands {
 }
 
 #[derive(StructOpt)]
+#[structopt(rename_all = "kebab-case")]
 struct Args {
     #[structopt(long, env = "YAGNA_APPKEY")]
     appkey: String,
@@ -27,6 +29,7 @@ struct Args {
 #[actix_rt::main]
 pub async fn main() -> anyhow::Result<()> {
     dotenv::dotenv().ok();
+    dotenv::from_filename(".debug").ok();
 
     let args = Args::from_args();
     std::env::set_var("RUST_LOG", "info");

@@ -21,7 +21,7 @@ use yarapi::ya_agreement_utils::{constraints, ConstraintKey, Constraints};
 use interactive_exeunit::messages::{Info, Messages, Progress};
 
 const PACKAGE: &str =
-    "hash:sha3:1b93678011c94a883605634eb4636a27a2ac6459816f48647b6ab968:http://yacn.dev.golem.network:8000/progress-reporter-0.1.1";
+    "hash:sha3:a480224e9ef0f2ea206443067fe1cacaca46b4c0121e320a8e500c55:http://yacn.dev.golem.network:8000/progress-reporter-0.2.0";
 
 pub fn create_demand(deadline: DateTime<Utc>, subnet: &str) -> NewDemand {
     log::info!("Using subnet: {}", subnet);
@@ -47,11 +47,14 @@ pub fn create_demand(deadline: DateTime<Utc>, subnet: &str) -> NewDemand {
 }
 
 #[derive(StructOpt)]
+#[structopt(rename_all = "kebab-case")]
 struct Args {
     #[structopt(long, env, default_value = "community.3")]
     subnet: String,
     #[structopt(long, env = "YAGNA_APPKEY")]
     appkey: String,
+    #[structopt(long, env, default_value = "16")]
+    num_events: u32,
 }
 
 #[actix_rt::main]
@@ -96,7 +99,7 @@ pub async fn main() -> anyhow::Result<()> {
             };
 
             log::info!("Image deployed. ExeUnit started.");
-            monitor_progress(activity.clone()).await?;
+            monitor_progress(activity.clone(), args.num_events).await?;
             Ok(())
         })
         .await
@@ -114,14 +117,22 @@ pub async fn main() -> anyhow::Result<()> {
     Ok(())
 }
 
-pub async fn monitor_progress(activity: Arc<DefaultActivity>) -> anyhow::Result<()> {
+pub async fn monitor_progress(
+    activity: Arc<DefaultActivity>,
+    num_events: u32,
+) -> anyhow::Result<()> {
     let (sender, receiver) = mpsc::unbounded_channel::<Messages>();
 
     tokio::spawn(events_tracker(receiver));
 
     let batch = activity
-        .run_streaming("/bin/progress-reporter", vec![])
-        .await?;
+        .run_streaming(
+            "/bin/progress-reporter",
+            vec!["--num-events".to_string(), num_events.to_string()],
+        )
+        .await?
+        .debug(".debug")?;
+
     batch
         .stream()
         .await?
