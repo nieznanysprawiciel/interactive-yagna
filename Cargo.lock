@@ -592,7 +592,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "aafcde04e90a5226a6443b7aabdb016ba2f8307c847d524724bd9b346dd1a2d3"
 dependencies = [
  "atty",
- "humantime 1.3.0",
+ "humantime",
  "log",
  "regex",
  "termcolor",
@@ -1021,12 +1021,6 @@ checksum = "df004cfca50ef23c36850aaaa59ad52cc70d0e90243c3c7737a4dd32dc7a3c4f"
 dependencies = [
  "quick-error",
 ]
-
-[[package]]
-name = "humantime"
-version = "2.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3c1ad908cc71012b7bea4d0c53ba96a8cba9962f048fa68d143376143d863b7a"
 
 [[package]]
 name = "idna"
@@ -2252,15 +2246,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "tabular"
-version = "0.1.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e7e35bee02dcefe64a74065b6b869d241eab1a02fea0d65e6074ce4e51894c3b"
-dependencies = [
- "unicode-width",
-]
-
-[[package]]
 name = "tempfile"
 version = "3.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2747,33 +2732,6 @@ dependencies = [
  "thiserror",
  "ya-client-model 0.1.1",
  "ya-service-bus",
-]
-
-[[package]]
-name = "ya-debugger"
-version = "0.1.0"
-dependencies = [
- "actix",
- "actix-rt",
- "anyhow",
- "bigdecimal",
- "chrono",
- "derive_more",
- "dotenv",
- "env_logger",
- "futures",
- "humantime 2.0.1",
- "indicatif",
- "log",
- "semver",
- "serde",
- "serde_json",
- "structopt",
- "tabular",
- "tokio",
- "ya-client",
- "ya-client-model 0.2.0",
- "yarapi",
 ]
 
 [[package]]

@@ -9,7 +9,6 @@ edition = "2018"
 [workspace]
 members = [
     "progress-reporter",
-    "ya-debugger"
 ]
 
 [dependencies]
