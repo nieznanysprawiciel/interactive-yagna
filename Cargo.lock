@@ -1677,6 +1677,31 @@ dependencies = [
 ]
 
 [[package]]
+name = "prophecy-on-demand"
+version = "0.1.0"
+dependencies = [
+ "actix",
+ "actix-rt",
+ "anyhow",
+ "bigdecimal",
+ "chrono",
+ "derive_more",
+ "dotenv",
+ "env_logger",
+ "futures",
+ "indicatif",
+ "log",
+ "parity-wordlist",
+ "semver",
+ "serde",
+ "serde_json",
+ "structopt",
+ "tokio",
+ "two-way-interaction",
+ "yarapi",
+]
+
+[[package]]
 name = "prost"
 version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2468,6 +2493,31 @@ dependencies = [
  "smallvec",
  "tokio",
  "trust-dns-proto",
+]
+
+[[package]]
+name = "two-way-interaction"
+version = "0.1.0"
+dependencies = [
+ "actix",
+ "actix-rt",
+ "anyhow",
+ "bigdecimal",
+ "chrono",
+ "derive_more",
+ "dotenv",
+ "env_logger",
+ "futures",
+ "indicatif",
+ "log",
+ "semver",
+ "serde",
+ "serde_json",
+ "structopt",
+ "tokio",
+ "ya-client",
+ "ya-client-model 0.2.0",
+ "yarapi",
 ]
 
 [[package]]
