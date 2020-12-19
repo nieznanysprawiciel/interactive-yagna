@@ -1,7 +1,7 @@
 use chrono::{DateTime, Utc};
 use futures::future::ready;
 use futures::StreamExt;
-use indicatif::{ProgressBar, ProgressStyle};
+use rustyline::Editor;
 use std::ops::Add;
 use std::path::PathBuf;
 use std::sync::Arc;
@@ -14,14 +14,14 @@ use ya_client_model::market::NewDemand;
 
 use yarapi::requestor::Image;
 use yarapi::rest::activity::DefaultActivity;
-use yarapi::rest::streaming::{ResultStream, StreamingActivity};
+use yarapi::rest::streaming::{MessagingRequestor, ResultStream, StreamingActivity};
 use yarapi::rest::{self, Activity};
 use yarapi::ya_agreement_utils::{constraints, ConstraintKey, Constraints};
 
-use two_way_interaction::messages::Messages;
+use prophecy_on_demand::Messages;
 
 const PACKAGE: &str =
-    "hash:sha3:a480224e9ef0f2ea206443067fe1cacaca46b4c0121e320a8e500c55:http://yacn.dev.golem.network:8000/progress-reporter-0.2.0";
+    "hash:sha3:e346c062ba0f085eb16ec7890c43b00490971246bc9bbabad0d154fd:http://yacn.dev.golem.network:8000/progress-reporter-0.2.1";
 
 pub fn create_demand(deadline: DateTime<Utc>, subnet: &str) -> NewDemand {
     log::info!("Using subnet: {}", subnet);
@@ -119,9 +119,13 @@ pub async fn interact(activity: Arc<DefaultActivity>) -> anyhow::Result<()> {
     let (sender, receiver) = mpsc::unbounded_channel::<Messages>();
 
     tokio::spawn(events_tracker(receiver));
+    tokio::task::spawn_local(cmdline_commands(activity.clone()));
 
     let batch = activity
-        .run_streaming("/bin/prophecy-on-demand", vec![])
+        .run_streaming(
+            "/bin/prophecy-on-demand",
+            vec!["--messages-dir".to_string(), "/messages".to_string()],
+        )
         .await?
         .debug(".debug")?;
 
@@ -155,24 +159,47 @@ pub async fn interact(activity: Arc<DefaultActivity>) -> anyhow::Result<()> {
 }
 
 async fn events_tracker(mut receiver: mpsc::UnboundedReceiver<Messages>) {
-    let bar_max: u64 = 100;
-    let bar = ProgressBar::new(bar_max);
-
-    bar.set_style(
-        ProgressStyle::default_bar()
-            .template("{prefix}: {bar:40.cyan/blue} {pos:>7}/{len:7} \nThis will happen to you tomorrow: {msg}")
-            .progress_chars("##-"),
-    );
-    bar.set_prefix("Collecting prophecies");
-    bar.set_position(0);
-
     while let Some(msg) = receiver.recv().await {
         match msg {
-            Messages::ProphecyResult { message } => bar.set_message(&message),
+            Messages::ProphecyResult { message } => println!("{}", message),
             _ => (),
         }
     }
+}
 
-    bar.set_position(bar_max);
-    //bar.finish();
+async fn cmdline_commands(activity: Arc<DefaultActivity>) {
+    let messaging = MessagingRequestor::new(activity, &PathBuf::from("/messages"));
+    let mut rl = Editor::<()>::new();
+
+    loop {
+        let readline = rl.readline("$ ");
+        let input = match readline {
+            Ok(line) => {
+                if line.trim().is_empty() {
+                    continue;
+                }
+
+                rl.add_history_entry(line.as_str());
+                line
+            }
+            Err(_) => break,
+        };
+
+        match &input[..] {
+            "get" => messaging
+                .send(&Messages::GetProphecy)
+                .await
+                .map_err(|e| log::warn!("Sending [GetProphecy]: {}", e))
+                .ok(),
+            "exit" => {
+                messaging
+                    .send(&Messages::Finish)
+                    .await
+                    .map_err(|e| log::warn!("Sending [Finish]: {}", e))
+                    .ok();
+                break;
+            }
+            _ => None,
+        };
+    }
 }

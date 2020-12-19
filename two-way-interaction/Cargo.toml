@@ -13,6 +13,8 @@ ya-client-model = { git = "https://github.com/golemfactory/ya-client.git", rev =
 yarapi = { git = "https://github.com/golemfactory/yarapi", branch = "messaging-through-streaming" }
 #yarapi = { path = "../../Golem/yarapi", branch = "messaging-through-streaming" }
 
+prophecy-on-demand = { path= "../prophecy-on-demand"}
+
 actix = "0.9"
 actix-rt = "1.0"
 anyhow = "1.0.28"
@@ -22,8 +24,8 @@ derive_more = "0.99.11"
 dotenv = "0.15.0"
 env_logger = "0.6"
 futures = "0.3"
-indicatif = "0.15.0"
 log = "0.4"
+rustyline = "7.0.0"
 semver = "0.10.0"
 serde = "1.0.117"
 serde_json = "1.0"
