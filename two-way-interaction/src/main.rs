@@ -21,7 +21,7 @@ use yarapi::ya_agreement_utils::{constraints, ConstraintKey, Constraints};
 use prophecy_on_demand::Messages;
 
 const PACKAGE: &str =
-    "hash:sha3:e346c062ba0f085eb16ec7890c43b00490971246bc9bbabad0d154fd:http://yacn.dev.golem.network:8000/progress-reporter-0.2.1";
+    "hash:sha3:8f09d137a837c376cd7c2b9c47e5390b1774c8895ac83bb5f9144d88:http://yacn.dev.golem.network:8000/progress-reporter-0.2.12";
 
 pub fn create_demand(deadline: DateTime<Utc>, subnet: &str) -> NewDemand {
     log::info!("Using subnet: {}", subnet);
@@ -118,9 +118,6 @@ pub async fn main() -> anyhow::Result<()> {
 pub async fn interact(activity: Arc<DefaultActivity>) -> anyhow::Result<()> {
     let (sender, receiver) = mpsc::unbounded_channel::<Messages>();
 
-    tokio::spawn(events_tracker(receiver));
-    tokio::task::spawn_local(cmdline_commands(activity.clone()));
-
     let batch = activity
         .run_streaming(
             "/bin/prophecy-on-demand",
@@ -128,6 +125,9 @@ pub async fn interact(activity: Arc<DefaultActivity>) -> anyhow::Result<()> {
         )
         .await?
         .debug(".debug")?;
+
+    tokio::spawn(events_tracker(receiver));
+    tokio::task::spawn_local(cmdline_commands(activity.clone()));
 
     batch
         .stream()

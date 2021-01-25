@@ -16,14 +16,27 @@ struct Args {
 
 #[actix_rt::main]
 async fn main() -> anyhow::Result<()> {
+    std::env::set_var("RUST_LOG", "debug");
+    env_logger::init();
+
     let args = Args::from_args();
 
     let messaging = MessagingExeUnit::new(&PathBuf::from(&args.messages_dir))?;
     let mut listener = messaging.listen::<Messages>();
 
+    tokio::task::spawn_local(async move {
+        loop {
+            tokio::time::delay_for(std::time::Duration::from_secs(3)).await;
+            log::info!("Alive: {:#?}", std::time::Instant::now());
+        }
+    });
+
     while let Some(message) = listener.recv().await {
         match message {
-            Messages::Finish => return Ok(()),
+            Messages::Finish => {
+                log::info!("Got finish message. Finishing..");
+                return Ok(());
+            }
             Messages::GetProphecy => send_prophecy(),
             _ => continue,
         }
