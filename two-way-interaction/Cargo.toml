@@ -7,12 +7,10 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-ya-client = { git = "https://github.com/golemfactory/ya-client.git", rev = "e68bbd90c903c6f74f77fddb80a432d20e4e2b2a"}
-ya-client-model = { git = "https://github.com/golemfactory/ya-client.git", rev = "e68bbd90c903c6f74f77fddb80a432d20e4e2b2a"}
+ya-client = "0.5"
+ya-client-model = "0.3"
 
-#yarapi = { git = "https://github.com/golemfactory/yarapi", branch = "messaging-through-streaming" }
-yarapi = { git = "https://github.com/golemfactory/yarapi", branch = "debug/messaging-through-streaming" }
-#yarapi = { path = "../../../Golem/yarapi" }
+yarapi = "0.4"
 
 prophecy-on-demand = { path= "../prophecy-on-demand"}
 

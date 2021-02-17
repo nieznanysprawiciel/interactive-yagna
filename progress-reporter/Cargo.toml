@@ -9,7 +9,7 @@ edition = "2018"
 [dependencies]
 interactive-exeunit = { path = "../"}
 
-yarapi = { git = "https://github.com/golemfactory/yarapi", branch = "messaging-through-streaming" }
+yarapi = "0.4"
 
 actix = "0.9"
 actix-rt = "1.0"

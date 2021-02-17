@@ -14,11 +14,10 @@ members = [
 ]
 
 [dependencies]
-ya-client = { git = "https://github.com/golemfactory/ya-client.git", rev = "a5bfc61da8f3a5cdcafcacf3d48a9f706571a9d7"}
-ya-client-model = { git = "https://github.com/golemfactory/ya-client.git", rev = "a5bfc61da8f3a5cdcafcacf3d48a9f706571a9d7"}
+ya-client = "0.5"
+ya-client-model = "0.3"
 
-yarapi = { git = "https://github.com/golemfactory/yarapi", branch = "experimental-features" }
-#yarapi = { path = "../../Golem/yarapi", branch = "messaging-through-streaming" }
+yarapi = "0.4"
 
 actix = "0.9"
 actix-rt = "1.0"
@@ -38,8 +37,7 @@ structopt = "0.3"
 tokio = { version = "0.2.10", features = ["fs"] }
 
 [patch.crates-io]
-ya-client = { git = "https://github.com/golemfactory/ya-client.git", rev = "a5bfc61da8f3a5cdcafcacf3d48a9f706571a9d7"}
-ya-client-model = { git = "https://github.com/golemfactory/ya-client.git", rev = "a5bfc61da8f3a5cdcafcacf3d48a9f706571a9d7"}
-
-#yarapi = { path = "../../Golem/yarapi", branch = "messaging-through-streaming" }
+yarapi = { git = "https://github.com/golemfactory/yarapi", branch = "messaging-through-streaming" }
+#ya-client = { git = "https://github.com/golemfactory/ya-client.git", branch = "release/v0.5"}
+#ya-client-model = { git = "https://github.com/golemfactory/ya-client.git", branch = "release/v0.5"}
 
